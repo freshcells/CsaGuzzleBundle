@@ -1,23 +1,27 @@
 {
-    "name": "csa/guzzle-bundle",
+    "name": "freshcells/guzzle-bundle",
     "type": "symfony-bundle",
     "description": "A bundle integrating GuzzleHttp >= 4.0",
     "license": "Apache-2.0",
     "authors": [
+        {
+            "name": "Ivo Bathke",
+            "email": "ivo.bathke@freshcells.de"
+        },
         {
             "name": "Charles Sarrazin",
             "email": "charles@sarraz.in"
         }
     ],
     "require": {
-        "php": "^7.1 || ^8.0",
+        "php": "^7.4 || ^8.0",
         "csa/guzzle-cache-middleware": "^1.0.0",
         "csa/guzzle-history-middleware": "^1.0.0",
         "csa/guzzle-stopwatch-middleware": "^1.0.0",
         "guzzlehttp/guzzle": "^6.1 || ^7.0",
-        "symfony/dependency-injection": "^2.8 || ^3.0 || ^4.0 || ^5.0",
-        "symfony/filesystem": "^2.8 || ^3.0 || ^4.0 || ^5.0",
-        "symfony/framework-bundle": "^2.8 || ^3.0 || ^4.0 || ^5.0",
+        "symfony/dependency-injection": "^3.0 || ^4.0 || ^5.0",
+        "symfony/filesystem": "^3.0 || ^4.0 || ^5.0",
+        "symfony/framework-bundle": "^3.0 || ^4.0 || ^5.0",
         "twig/twig": "^2.10 || ^3.0"
     },
     "require-dev": {
@@ -25,7 +29,8 @@
         "phpunit/phpunit": "^7.0",
         "symfony/phpunit-bridge": "^2.8 || ^3.0 || ^4.0 || ^5.0",
         "symfony/web-profiler-bundle": "^2.8 || ^3.0 || ^4.0 || ^5.0",
-        "symfony/yaml": "^2.8 || ^3.0 || ^4.0 || ^5.0"
+        "symfony/yaml": "^2.8 || ^3.0 || ^4.0 || ^5.0",
+        "squizlabs/php_codesniffer": "^3.7"
     },
     "suggest": {
         "doctrine/cache": "Allows caching of responses",
@@ -33,10 +38,14 @@
         "psr/cache": "Allows caching of responses",
         "tolerance/tolerance": "Allows retrying failed requests"
     },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src",
+        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src"
+    },
     "extra": {
         "branch-alias": {
-            "dev-2.x": "2.3-dev",
-            "dev-master": "4.0-dev"
+            "dev-main": "1.0-dev"
         }
     },
     "autoload": {

@@ -1,15 +1,7 @@
 CsaGuzzleBundle
 ===============
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/csarrazi/CsaGuzzleBundle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-[![Latest Stable Version](https://poser.pugx.org/csa/guzzle-bundle/v/stable)](https://packagist.org/packages/csa/guzzle-bundle "Latest Stable Version")
-[![Latest Unstable Version](https://poser.pugx.org/csa/guzzle-bundle/v/unstable)](https://packagist.org/packages/csa/guzzle-bundle "Latest Unstable Version")
-[![Total Downloads](https://poser.pugx.org/csa/guzzle-bundle/downloads)](https://packagist.org/packages/csa/guzzle-bundle "Total Downloads")
-[![License](https://poser.pugx.org/csa/guzzle-bundle/license)](https://packagist.org/packages/csa/guzzle-bundle)
-[![Travis Build Status](https://travis-ci.org/csarrazi/CsaGuzzleBundle.png?branch=master)](https://travis-ci.org/csarrazi/CsaGuzzleBundle "Build status")
-[![SymfonyInsight](https://insight.symfony.com/projects/eceadd60-cc6c-473c-9d20-e8207654d70b/mini.svg)](https://insight.symfony.com/projects/eceadd60-cc6c-473c-9d20-e8207654d70b "SensioLabs Insight")
-[![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/e5sev7kmv8l4q13q/branch/master?svg=true)](https://ci.appveyor.com/project/csarrazi/csaguzzlebundle/branch/master "Appveyor")
+Forked from https://github.com/csarrazi/CsaGuzzleBundle
 
 Description
 -----------
