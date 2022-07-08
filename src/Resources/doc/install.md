@@ -9,19 +9,19 @@ Add the required package using composer.
 ### Stable version
 
 ```bash
-composer require csa/guzzle-bundle:^3.0
+composer require freshcells/guzzle-bundle:^3.0
 ```
 
 ### Legacy version
 
 ```bash
-composer require csa/guzzle-bundle:^2.0
+composer require freshcells/guzzle-bundle:^2.0
 ```
 
 ### Bleeding-edge version
 
 ```bash
-composer require csa/guzzle-bundle:@dev
+composer require freshcells/guzzle-bundle:@dev
 ```
 
 ### Enabling the bundle
