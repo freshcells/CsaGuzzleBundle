@@ -16,6 +16,7 @@ use GuzzleHttp\HandlerStack;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Exception\LogicException;
 use Symfony\Component\DependencyInjection\Reference;
 
 class MiddlewarePassTest extends TestCase
@@ -76,12 +77,11 @@ class MiddlewarePassTest extends TestCase
         $this->assertEquals(['push', [new Reference('qux'), 'qux']], $calls[1]);
     }
 
-    /**
-     * @expectedException \Symfony\Component\DependencyInjection\Exception\LogicException
-     * @expectedExceptionMessage You cannot mix whitelisting and blacklisting of middleware at the same time.
-     */
     public function testForbidWhitelistingAlongWithBlacklisting()
     {
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('You cannot mix whitelisting and blacklisting of middleware at the same time.');
+
         $client = $this->createClient(['!foo', 'bar']);
 
         $container = $this->createContainer();

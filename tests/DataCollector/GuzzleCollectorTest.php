@@ -29,14 +29,14 @@ class GuzzleCollectorTest extends TestCase
     {
         $mocks = array_fill(0, 3, new Response(204));
 
-        $mock = new MockHandler($mocks);
-        $handler = HandlerStack::create($mock);
+        $mock      = new MockHandler($mocks);
+        $handler   = HandlerStack::create($mock);
         $collector = new GuzzleCollector();
         $handler->push(new HistoryMiddleware($collector->getHistory()));
         $client = new Client(['handler' => $handler]);
 
-        $request = Request::createFromGlobals();
-        $response = $this->createMock('Symfony\Component\HttpFoundation\Response');
+        $request  = Request::createFromGlobals();
+        $response = $this->createMock(\Symfony\Component\HttpFoundation\Response::class);
         $collector->collect($request, $response, new \Exception());
         $this->assertCount(0, $collector->getCalls());
 
@@ -57,27 +57,33 @@ class GuzzleCollectorTest extends TestCase
         }
         $mocks = array_fill(0, 3, new Response(204));
 
-        $mock = new MockHandler($mocks);
-        $handler = HandlerStack::create($mock);
+        $mock      = new MockHandler($mocks);
+        $handler   = HandlerStack::create($mock);
         $collector = new GuzzleCollector();
         $handler->push(new HistoryMiddleware($collector->getHistory()));
         $client = new Client(['handler' => $handler]);
 
-        $request = Request::createFromGlobals();
+        $request  = Request::createFromGlobals();
         $response = $this->createMock('Symfony\Component\HttpFoundation\Response');
 
         $client->get('http://foo.bar');
         $collector->collect($request, $response, new \Exception());
         $calls = $collector->getCalls();
-        $this->assertStringStartsWith(sprintf(
-            'curl %s -A',
-            escapeshellarg('http://foo.bar')
-        ), $calls[0]['curl']
+        $this->assertStringStartsWith(
+            sprintf(
+                'curl %s -A',
+                escapeshellarg('http://foo.bar')
+            ),
+            $calls[0]['curl']
         );
 
         $client->post('http://foo.bar', ['body' => str_pad('', GuzzleCollector::MAX_BODY_SIZE + 1)]);
         $collector->collect($request, $response, new \Exception());
         $calls = $collector->getCalls();
-        $this->assertArrayNotHasKey('curl', $calls[1], 'This request body size shouldn\'t be passed to CurlFormatter');
+        $this->assertArrayNotHasKey(
+            'curl',
+            $calls[1],
+            'This request body size shouldn\'t be passed to CurlFormatter'
+        );
     }
 }

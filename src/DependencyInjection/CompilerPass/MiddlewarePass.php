@@ -51,11 +51,11 @@ class MiddlewarePass implements CompilerPassInterface
 
         foreach ($services as $id => $tags) {
             if (count($tags) > 1) {
-                throw new \LogicException(sprintf('Middleware should only use a single \'%s\' tag', self::MIDDLEWARE_TAG));
+                throw new \LogicException(sprintf('Middleware should only use a single \'%s\' tag', self::MIDDLEWARE_TAG)); // phpcs:ignore
             }
 
             if (!isset($tags[0]['alias'])) {
-                throw new \LogicException(sprintf('The \'alias\' attribute is mandatory for the \'%s\' tag', self::MIDDLEWARE_TAG));
+                throw new \LogicException(sprintf('The \'alias\' attribute is mandatory for the \'%s\' tag', self::MIDDLEWARE_TAG)); // phpcs:ignore
             }
 
             $priority = isset($tags[0]['priority']) ? $tags[0]['priority'] : 0;

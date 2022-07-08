@@ -35,7 +35,7 @@ class CsaGuzzleExtension extends Extension
     {
         $config = $this->processConfiguration(new Configuration(), $configs);
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
         $loader->load('middleware.xml');
         $loader->load('collector.xml');
@@ -93,8 +93,12 @@ class CsaGuzzleExtension extends Extension
         }
     }
 
-    private function processMockConfiguration(array $config, ContainerBuilder $container, LoaderInterface $loader, $debug)
-    {
+    private function processMockConfiguration(
+        array $config,
+        ContainerBuilder $container,
+        LoaderInterface $loader,
+        $debug
+    ) {
         if (!$config['enabled']) {
             return;
         }
@@ -130,7 +134,7 @@ class CsaGuzzleExtension extends Extension
     private function processClientsConfiguration(array $config, ContainerBuilder $container, $debug)
     {
         if (empty($config['default_client'])) {
-            $keys = array_keys($config['clients']);
+            $keys                     = array_keys($config['clients']);
             $config['default_client'] = reset($keys);
         }
 
@@ -140,7 +144,13 @@ class CsaGuzzleExtension extends Extension
 
             if (isset($options['config'])) {
                 if (!is_array($options['config'])) {
-                    throw new InvalidArgumentException(sprintf('Config for "csa_guzzle.client.%s" should be an array, but got %s', $name, gettype($options['config'])));
+                    throw new InvalidArgumentException(
+                        sprintf(
+                            'Config for "csa_guzzle.client.%s" should be an array, but got %s',
+                            $name,
+                            gettype($options['config'])
+                        )
+                    );
                 }
                 $client->addArgument($this->buildGuzzleConfig($options['config'], $debug));
             }
@@ -158,7 +168,10 @@ class CsaGuzzleExtension extends Extension
                     }
 
                     if ($addDebugMiddleware) {
-                        $options['middleware'] = array_merge($options['middleware'], ['stopwatch', 'history', 'logger']);
+                        $options['middleware'] = array_merge(
+                            $options['middleware'],
+                            ['stopwatch', 'history', 'logger']
+                        );
                     }
                 }
 

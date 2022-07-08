@@ -44,7 +44,7 @@ abstract class InternalGuzzleCollector extends DataCollector
     public function __construct($maxBodySize = self::MAX_BODY_SIZE, History $history = null)
     {
         $this->maxBodySize = $maxBodySize;
-        $this->history = $history ?: new History();
+        $this->history     = $history ?: new History();
 
         if (class_exists(\Namshi\Cuzzle\Formatter\CurlFormatter::class)) {
             $this->curlFormatter = new \Namshi\Cuzzle\Formatter\CurlFormatter();
@@ -71,16 +71,16 @@ abstract class InternalGuzzleCollector extends DataCollector
             $info = $transaction['info'];
 
             $req = [
-                'request' => [
-                    'method' => $request->getMethod(),
+                'request'  => [
+                    'method'  => $request->getMethod(),
                     'version' => $request->getProtocolVersion(),
                     'headers' => $request->getHeaders(),
-                    'body' => $this->cropContent($request->getBody()),
+                    'body'    => $this->cropContent($request->getBody()),
                 ],
-                'info' => $info,
-                'uri' => urldecode($request->getUri()),
+                'info'     => $info,
+                'uri'      => urldecode($request->getUri()),
                 'httpCode' => 0,
-                'error' => null,
+                'error'    => null,
             ];
 
             if ($this->curlFormatter && $request->getBody()->getSize() <= $this->maxBodySize) {
@@ -90,8 +90,8 @@ abstract class InternalGuzzleCollector extends DataCollector
             if ($response) {
                 $req['response'] = [
                     'reasonPhrase' => $response->getReasonPhrase(),
-                    'headers' => $response->getHeaders(),
-                    'body' => $this->cropContent($response->getBody()),
+                    'headers'      => $response->getHeaders(),
+                    'body'         => $this->cropContent($response->getBody()),
                 ];
 
                 $req['httpCode'] = $response->getStatusCode();
@@ -108,10 +108,10 @@ abstract class InternalGuzzleCollector extends DataCollector
             if ($error && $error instanceof RequestException) {
                 $req['error'] = [
                     'message' => $error->getMessage(),
-                    'line' => $error->getLine(),
-                    'file' => $error->getFile(),
-                    'code' => $error->getCode(),
-                    'trace' => $error->getTraceAsString(),
+                    'line'    => $error->getLine(),
+                    'file'    => $error->getFile(),
+                    'code'    => $error->getCode(),
+                    'trace'   => $error->getTraceAsString(),
                 ];
             }
 
@@ -128,12 +128,12 @@ abstract class InternalGuzzleCollector extends DataCollector
         }
 
         if ($stream->getSize() <= $this->maxBodySize) {
-            return (string) $stream;
+            return (string)$stream;
         }
 
         $stream->seek(0);
 
-        return '(partial content)'.$stream->read($this->maxBodySize).'(...)';
+        return '(partial content)' . $stream->read($this->maxBodySize) . '(...)';
     }
 
     public function getErrors()
@@ -186,7 +186,7 @@ abstract class InternalGuzzleCollector extends DataCollector
 }
 
 if (Kernel::MAJOR_VERSION >= 5) {
-    final class GuzzleCollector extends InternalGuzzleCollector
+    final class GuzzleCollector extends InternalGuzzleCollector //phpcs:ignore
     {
         public function collect(Request $request, Response $response, \Throwable $exception = null)
         {
@@ -194,7 +194,7 @@ if (Kernel::MAJOR_VERSION >= 5) {
         }
     }
 } else {
-    class GuzzleCollector extends InternalGuzzleCollector
+    class GuzzleCollector extends InternalGuzzleCollector //phpcs:ignore
     {
         public function collect(Request $request, Response $response, \Exception $exception = null)
         {

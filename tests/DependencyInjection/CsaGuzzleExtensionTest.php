@@ -19,6 +19,7 @@ use GuzzleHttp\MessageFormatter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Symfony\Component\Yaml\Parser;
 
 class CsaGuzzleExtensionTest extends TestCase
@@ -68,7 +69,7 @@ clients:
 YAML;
 
         $container = $this->createContainer($yaml);
-        $client = $container->getDefinition('csa_guzzle.client.foo');
+        $client    = $container->getDefinition('csa_guzzle.client.foo');
 
         $this->assertFalse($client->isLazy());
     }
@@ -85,7 +86,7 @@ clients:
 YAML;
 
         $container = $this->createContainer($yaml);
-        $client = $container->getDefinition('csa_guzzle.client.foo');
+        $client    = $container->getDefinition('csa_guzzle.client.foo');
 
         $this->assertTrue($client->isLazy());
     }
@@ -131,23 +132,22 @@ clients:
 YAML;
 
         $container = $this->createContainer($yaml);
-        $config = $container->getDefinition('csa_guzzle.client.foo')->getArgument(0);
+        $config    = $container->getDefinition('csa_guzzle.client.foo')->getArgument(0);
         $this->assertInstanceOf(
             'Symfony\Component\DependencyInjection\Reference',
             $config['handler']
         );
         $this->assertSame(
             'my.handler.id',
-            (string) $config['handler']
+            (string)$config['handler']
         );
     }
 
-    /**
-     * @expectedException \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Config for "csa_guzzle.client.bar" should be an array, but got string
-     */
     public function testInvalidClientConfig()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Config for "csa_guzzle.client.bar" should be an array, but got string');
+
         $yaml = <<<'YAML'
 clients:
     foo:
@@ -238,19 +238,29 @@ YAML;
 
     public function testLoggerConfiguration()
     {
-        $yaml = <<<'YAML'
+        $yaml    = <<<'YAML'
 logger:
     enabled: true
     service: monolog.logger
     format: %s
 YAML;
-        $formats = ['clf' => MessageFormatter::CLF, 'debug' => MessageFormatter::DEBUG, 'short' => MessageFormatter::SHORT];
+        $formats = [
+            'clf'   => MessageFormatter::CLF,
+            'debug' => MessageFormatter::DEBUG,
+            'short' => MessageFormatter::SHORT
+        ];
 
         foreach ($formats as $alias => $format) {
             $container = $this->createContainer(sprintf($yaml, $alias));
 
-            $this->assertSame($format, $container->getDefinition('csa_guzzle.logger.message_formatter')->getArgument(0));
-            $this->assertSame('monolog.logger', (string) $container->getDefinition('csa_guzzle.middleware.logger')->getArgument(0));
+            $this->assertSame(
+                $format,
+                $container->getDefinition('csa_guzzle.logger.message_formatter')->getArgument(0)
+            );
+            $this->assertSame(
+                'monolog.logger',
+                (string)$container->getDefinition('csa_guzzle.middleware.logger')->getArgument(0)
+            );
         }
 
         $yaml = <<<'YAML'
@@ -279,7 +289,7 @@ YAML;
         $container = $this->createContainer($yaml);
         $container->setDefinition('my.adapter.id', new Definition());
         $alias = $container->getAlias('csa_guzzle.cache_adapter');
-        $this->assertSame('my.adapter.id', (string) $alias);
+        $this->assertSame('my.adapter.id', (string)$alias);
     }
 
     public function testMockConfiguration()
@@ -353,7 +363,7 @@ YAML;
 
     private function createContainer($yaml, array $services = [])
     {
-        $parser = new Parser();
+        $parser    = new Parser();
         $container = new ContainerBuilder();
 
         foreach ($services as $serviceId => $serviceClass) {
