@@ -121,7 +121,7 @@ class GuzzleExtension extends AbstractExtension
 
         return sprintf(
             '%s://%s%s',
-            isset($parts['scheme']) ? $parts['scheme'] : 'http',
+            $parts['scheme'] ?? 'http',
             $parts['host'],
             isset($parts['port']) ? (':'.$parts['port']) : ''
         );

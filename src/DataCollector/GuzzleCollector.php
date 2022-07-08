@@ -32,14 +32,13 @@ abstract class InternalGuzzleCollector extends DataCollector
 
     private $maxBodySize;
 
-    private $history;
+    private ?History $history;
 
     private $curlFormatter = null;
 
     /**
-     * Constructor.
-     *
      * @param int $maxBodySize The max body size to store in the profiler storage
+     * @param History|null $history
      */
     public function __construct($maxBodySize = self::MAX_BODY_SIZE, History $history = null)
     {
@@ -53,9 +52,6 @@ abstract class InternalGuzzleCollector extends DataCollector
         $this->data = [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function doCollect(Request $request, Response $response, \Throwable $exception = null)
     {
         $data = [];
@@ -148,7 +144,7 @@ abstract class InternalGuzzleCollector extends DataCollector
         return array_sum(
             array_map(
                 function ($call) {
-                    return isset($call['info']['total_time']) ? $call['info']['total_time'] : 0;
+                    return $call['info']['total_time'] ?? 0;
                 },
                 $this->data
             )

@@ -58,7 +58,7 @@ class MiddlewarePass implements CompilerPassInterface
                 throw new \LogicException(sprintf('The \'alias\' attribute is mandatory for the \'%s\' tag', self::MIDDLEWARE_TAG)); // phpcs:ignore
             }
 
-            $priority = isset($tags[0]['priority']) ? $tags[0]['priority'] : 0;
+            $priority = $tags[0]['priority'] ?? 0;
 
             $middleware[$priority][] = [
                 'alias' => $tags[0]['alias'],
