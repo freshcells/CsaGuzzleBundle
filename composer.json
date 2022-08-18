@@ -1,7 +1,7 @@
 {
     "name": "freshcells/guzzle-bundle",
     "type": "symfony-bundle",
-    "description": "A bundle integrating GuzzleHttp >= 4.0",
+    "description": "A bundle integrating GuzzleHttp >= 6.0",
     "license": "Apache-2.0",
     "authors": [
         {
@@ -15,9 +15,9 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "csa/guzzle-cache-middleware": "^1.0.0",
-        "csa/guzzle-history-middleware": "^1.0.0",
-        "csa/guzzle-stopwatch-middleware": "^1.0.0",
+        "freshcells/guzzle-cache-middleware": "dev-main",
+        "freshcells/guzzle-history-middleware": "dev-main",
+        "freshcells/guzzle-stopwatch-middleware": "dev-main",
         "guzzlehttp/guzzle": "^6.1 || ^7.0",
         "symfony/dependency-injection": "^4.0 || ^5.0",
         "symfony/event-dispatcher": "^4.0 || ^5.0",
@@ -46,8 +46,8 @@
     },
     "scripts": {
         "test": "phpunit",
-        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_warnings_on_exit 1 src tests",
-        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_warnings_on_exit 1 src tests"
+        "check-style": "phpcs -p --standard=PSR2 --extensions=php --runtime-set ignore_warnings_on_exit 1 src tests",
+        "fix-style": "phpcbf -p --standard=PSR2 --extensions=php --runtime-set ignore_warnings_on_exit 1 src tests"
     },
     "extra": {
         "branch-alias": {
@@ -65,5 +65,19 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/freshcells/guzzle-cache-middleware.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/freshcells/guzzle-history-middleware.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/freshcells/guzzle-stopwatch-middleware.git"
+        }
+    ]
 }
