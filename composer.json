@@ -15,9 +15,9 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "freshcells/guzzle-cache-middleware": "dev-main",
-        "freshcells/guzzle-history-middleware": "dev-main",
-        "freshcells/guzzle-stopwatch-middleware": "dev-main",
+        "freshcells/guzzle-cache-middleware": "^2",
+        "freshcells/guzzle-history-middleware": "^2",
+        "freshcells/guzzle-stopwatch-middleware": "^2",
         "guzzlehttp/guzzle": "^6.1 || ^7.0",
         "symfony/dependency-injection": "^4.0 || ^5.0",
         "symfony/event-dispatcher": "^4.0 || ^5.0",
@@ -51,7 +51,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "1.0-dev"
+            "dev-main": "4.0-dev"
         }
     },
     "autoload": {

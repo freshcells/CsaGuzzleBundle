@@ -1,13 +1,16 @@
 CsaGuzzleBundle
 ===============
 
-Forked from https://github.com/csarrazi/CsaGuzzleBundle
+This is a takeover drop-in fork of https://github.com/csarrazi/CsaGuzzleBundle which seems to be abandoned.  
+We left the namespace as `Csa` to assure drop-in replacement.
+
 
 Description
 -----------
 
 This bundle integrates Guzzle >=4.0 in Symfony.
-Versions `2.x` and `3.x` support Guzzle 6 and versions `1.x` support Guzzle 4 and 5.
+Versions `2.x` and `3.x` support Guzzle 6 and versions `1.x` support Guzzle 4 and 5.  
+Version `4.x` support Guzzle 7.
 
 Currently, the bundle supports the following features:
 
