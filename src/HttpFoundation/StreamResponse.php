@@ -28,7 +28,7 @@ class StreamResponse extends Response
         $this->bufferSize = $bufferSize;
     }
 
-    public function sendContent()
+    public function sendContent(): static
     {
         $chunked = $this->headers->has('Transfer-Encoding');
         $this->content->seek(0);
@@ -49,12 +49,12 @@ class StreamResponse extends Response
             flush();
 
             if (!$chunk) {
-                return;
+                return $this;
             }
         }
     }
 
-    public function getContent()
+    public function getContent(): string|false
     {
         return false;
     }
